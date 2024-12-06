@@ -1,0 +1,23 @@
+<form id="captureForm">
+    <label for="userName">Enter User Name:</label>
+    <input type="text" id="userName" name="userName" required>
+    <button type="submit">Start Capturing</button>
+</form>
+<script>
+    const form = document.getElementById('captureForm');
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const userName = document.getElementById('userName').value;
+
+        fetch('/capture', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userName }),
+        })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error(error));
+    });
+</script>
